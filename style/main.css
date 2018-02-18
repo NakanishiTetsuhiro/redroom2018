@@ -1,0 +1,120 @@
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: Meiryo, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Yu Gothic', YuGothic, Verdana, 'M+ 1p', sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+.hover:hover {
+  cursor: pointer;
+  opacity: .6;
+}
+
+/*dialog*/
+
+.dialog {
+  border: .1rem solid #2982CC;
+  /*background-color: #fff;*/
+  min-width: 40rem;
+  margin: auto;
+  margin-bottom: 2rem;
+}
+
+.dialog-header {
+  padding: 0;
+  border-bottom: .2rem solid #2982CC;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2982CC;
+}
+
+.dialog-title {
+  padding: 1rem 1rem .8rem;
+  color: #fff;
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.dialog-close {
+  background-color: #2982CC;
+  line-height: 1;
+  font-size: 2.4rem;
+  padding: 0 1.4rem;
+  color: #fff;
+}
+
+.dialog-contents {
+  font-size: 1.3rem;
+  text-align: center;
+  /*padding: 2.4rem;*/
+}
+
+.dialog-btn {
+  display: inline-block;
+  border: .1rem solid #DDD;
+  background-color: #F3F3F1;
+  line-height: 1;
+  padding: .8rem 6rem;
+  border-radius: .6rem;
+  margin-top: 1.4rem;
+}
+
+.dialog-area {
+  /*position: fixed;*/
+  top: 0;
+  left: 0;
+  /*width: 100vw;*/
+  /*height: 100vh;*/
+  overflow: hidden;
+  /*z-index: 100000;*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dialog-area > * {
+  margin: 0;
+}
+
+
+/* 中西が定義したあたり */
+#container {
+    background-color: black;
+}
+
+.drag-and-drop {
+    cursor: move;
+    position: absolute;
+    z-index: 1000;
+}
+
+.drag {
+    z-index: 1001;
+}
+
+#dialog01 {
+    display: block;
+    top: 52px;
+    left: 104px;
+}
+
+#dialog02 {
+    display: none;
+    top: 52px;
+    left: 104px;
+}
+
+#fear-box {
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-image: url('../img/fear.jpg');
+  z-index: 9999;
+}
