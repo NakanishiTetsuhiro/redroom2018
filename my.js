@@ -1,20 +1,4 @@
-// せっかくだしES2015でかいてみましょう
-// TODO: use strict;ってかく必要あるのかな？
-
 (() => {
-    //要素の取得
-    var elements = document.getElementsByClassName("drag-and-drop");
-
-    //要素内のクリックされた位置を取得するグローバル（のような）変数
-    var x;
-    var y;
-
-    //マウスが要素内で押されたとき、又はタッチされたとき発火
-    for(var i = 0; i < elements.length; i++) {
-        elements[i].addEventListener("mousedown", mdown, false);
-        elements[i].addEventListener("touchstart", mdown, false);
-    }
-
     //マウスが押された際の関数
     function mdown(e) {
 
@@ -94,21 +78,79 @@
     {
         switch ( n ) {
             case 1:
-                let audio01 = new Audio('audio/01.mp3')
-                audio01.play()
+                var path = 'audio/01.mp3'
+                // let audio01 = new Audio('audio/01.mp3')
+                // audio01.play()
                 break
             case 2:
-                let audio02 = new Audio('audio/02.mp3')
-                audio02.play()
+                var path = 'audio/02.mp3'
+                // let audio02 = new Audio('audio/02.mp3')
+                // audio02.play()
                 break
             case 3:
-                let audio03 = new Audio('audio/03.mp3')
-                audio03.play()
+                var path = 'audio/03.mp3'
+                // let audio03 = new Audio('audio/03.mp3')
+                // audio03.play()
                 break
             default:
                 throw new Error("Unexpected value")
         }
+
+        return new Promise(function(resolve, reject) {   // return a promise
+            var audio = new Audio(path);                 // create audio wo/ src
+            audio.preload = "auto";                      // intend to play through
+            audio.autoplay = true;                       // autoplay when loaded
+            audio.onerror = reject;                      // on error, reject
+            audio.onended = resolve;                     // when done, resolve
+        });
     }
+
+    // 指定ms待つ
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    // 非同期処理の結果を用いた処理（async/await）
+    async function testAsync(cnt) {
+        try {
+            $('#dialog01').css('display', 'none')
+
+            if (cnt <= 3) {
+                await sleep(800)
+                $('#dialog01').css('display', 'block')
+                sound(1)
+
+            } else if (cnt === 4) {
+                await sleep(800)
+                $('#dialog02').css('display', 'block')
+                
+                // TODO: ここsound鳴らすところ同期処理にしたい
+                sound(2)
+                await sleep(2000)
+                
+                $('#dialog02').css('display', 'none')
+                $('#fear-box').css('display', 'block')
+                sound(3)
+            }
+        } catch(err) {
+            return console.error(`error: ${err}`);
+        }
+    }
+
+
+    //要素の取得
+    var elements = document.getElementsByClassName("drag-and-drop");
+
+    //要素内のクリックされた位置を取得するグローバル（のような）変数
+    var x;
+    var y;
+
+    //マウスが要素内で押されたとき、又はタッチされたとき発火
+    for(var i = 0; i < elements.length; i++) {
+        elements[i].addEventListener("mousedown", mdown, false);
+        elements[i].addEventListener("touchstart", mdown, false);
+    }
+
     // 開いたときにまず１かい鳴らす
     sound(1)
 
@@ -117,23 +159,10 @@
     // うむ
     $('#close-btn').click(function(){
         cnt++
-        console.log(cnt)
 
-        $('#dialog01').css('display', 'none')
-
-        setTimeout(() => {
-            if (cnt <= 3) {
-                $('#dialog01').css('display', 'block')
-                sound(1)
-            } else if (cnt === 4) {
-                $('#dialog02').css('display', 'block')
-                sound(2)
-                setTimeout(() => {
-                    $('#dialog02').css('display', 'none')
-                    $('#fear-box').css('display', 'block')
-                    sound(3)
-                }, 2000)
-            }
-        }, 800)
+        // async関数の実行
+        testAsync(cnt).catch(
+            err => console.error(`error: ${err}`)
+        );
     })
 })()
