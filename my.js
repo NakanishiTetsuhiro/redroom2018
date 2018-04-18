@@ -78,17 +78,17 @@
     {
         switch ( n ) {
             case 1:
-                var path = 'audio/01.mp3'
+                var path = 'audio/01.ogg'
                 // let audio01 = new Audio('audio/01.mp3')
                 // audio01.play()
                 break
             case 2:
-                var path = 'audio/02.mp3'
+                var path = 'audio/02.ogg'
                 // let audio02 = new Audio('audio/02.mp3')
                 // audio02.play()
                 break
             case 3:
-                var path = 'audio/03.mp3'
+                var path = 'audio/03.ogg'
                 // let audio03 = new Audio('audio/03.mp3')
                 // audio03.play()
                 break
