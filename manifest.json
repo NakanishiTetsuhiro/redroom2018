@@ -1,0 +1,13 @@
+{
+    "short_name": "赤い部屋",
+    "name": "赤い部屋2018",
+    "display": "standalone",
+    "start_url": "index.html",
+    "icons": [
+        {
+            "src": "img/icon.png",
+            "sizes": "400x400",
+            "type": "image/png"
+        }
+    ]
+}
