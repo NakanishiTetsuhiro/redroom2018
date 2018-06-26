@@ -1,4 +1,15 @@
 (() => {
+    let player1 = new Tone.Player("./audio/01.ogg").toMaster();
+    let player2 = new Tone.Player("./audio/02.ogg").toMaster();
+    let player3 = new Tone.Player("./audio/03.ogg").toMaster();
+
+    // TODO: 音量変更してみる
+    // player1.volume.value = -6;
+    // player2.volume.value = -6;
+    // player3.volume.value = -6;
+
+    console.log(player3.volume)
+
     //マウスが押された際の関数
     function mdown(e) {
 
@@ -63,35 +74,23 @@
         drag.classList.remove("drag");
     }
 
-    // スレッドを引数の時間だけ停止
-    function sleep(time) {
-        const d1 = new Date();
-        while (true) {
-            const d2 = new Date();
-            if (d2 - d1 > time) {
-                return;
-            }
-        }
-    }
-
     function sound(n)
     {
         if (n === 1){
-            var player = new Tone.Player("./audio/01.ogg").toMaster();
-            player.autostart = true;
+            player1.autostart = true;
+            player1.start();
         }
 
         if (n === 2){
-            var player = new Tone.Player("./audio/02.ogg").toMaster();
-            player.autostart = true;
+            player2.autostart = true;
+            player2.start();
         }
 
         if (n === 3){
-            var player = new Tone.Player("./audio/03.ogg").toMaster();
-            player.autostart = true;
+            player3.autostart = true;
+            player3.start();
         }
     }
-
 
 
 
@@ -113,11 +112,8 @@
             } else if (cnt === 4) {
                 await sleep(800)
                 $('#dialog02').css('display', 'block')
-
-                // TODO: ここsound鳴らすところ同期処理にしたい
                 sound(2)
                 await sleep(2000)
-
                 $('#dialog02').css('display', 'none')
                 $('#fear-box').css('display', 'block')
                 sound(3)
@@ -127,24 +123,26 @@
         }
     }
 
+    let x
+    let y
+    let cnt = 1
 
-    //要素の取得
-    var elements = document.getElementsByClassName("drag-and-drop");
+    // 画面の読み込みが終わった時点で発火するイベント
+    window.onload = function()
+    {
+        //要素の取得
+        var elements = document.getElementsByClassName("drag-and-drop");
 
-    //要素内のクリックされた位置を取得するグローバル（のような）変数
-    var x;
-    var y;
+        //マウスが要素内で押されたとき、又はタッチされたとき発火
+        for(var i = 0; i < elements.length; i++) {
+            elements[i].addEventListener("mousedown", mdown, false);
+            elements[i].addEventListener("touchstart", mdown, false);
+        }
 
-    //マウスが要素内で押されたとき、又はタッチされたとき発火
-    for(var i = 0; i < elements.length; i++) {
-        elements[i].addEventListener("mousedown", mdown, false);
-        elements[i].addEventListener("touchstart", mdown, false);
-    }
-
-    // 開いたときにまず１かい鳴らす
-    sound(1)
-
-    let cnt = 0
+        // 開いたときにまず１かい鳴らす
+        // INFO: iOSではユーザーがなにかアクションを起こさない限り音がならない仕様なので鳴りません
+        sound(cnt)
+    };
 
     // うむ
     $('#close-btn').click(function(){
