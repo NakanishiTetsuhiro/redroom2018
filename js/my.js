@@ -76,34 +76,17 @@
 
     function sound(n)
     {
-        switch ( n ) {
-            case 1:
-                var path = 'audio/01.ogg'
-                // let audio01 = new Audio('audio/01.mp3')
-                // audio01.play()
-                break
-            case 2:
-                var path = 'audio/02.ogg'
-                // let audio02 = new Audio('audio/02.mp3')
-                // audio02.play()
-                break
-            case 3:
-                var path = 'audio/03.ogg'
-                // let audio03 = new Audio('audio/03.mp3')
-                // audio03.play()
-                break
-            default:
-                throw new Error("Unexpected value")
-        }
+        //音源を生成
+        var synth = new Tone.Synth().toMaster();
+        //「C5」の音を「2分音符」で発音
+        synth.triggerAttackRelease('C5', '2n');
 
-        return new Promise(function(resolve, reject) {   // return a promise
-            var audio = new Audio(path);                 // create audio wo/ src
-            audio.preload = "auto";                      // intend to play through
-            audio.autoplay = true;                       // autoplay when loaded
-            audio.onerror = reject;                      // on error, reject
-            audio.onended = resolve;                     // when done, resolve
-        });
+        // var player = new Tone.Player("./audio/01.ogg").toMaster();
+        // player.autostart = true;
     }
+
+
+
 
     // 指定ms待つ
     function sleep(ms) {
@@ -123,11 +106,11 @@
             } else if (cnt === 4) {
                 await sleep(800)
                 $('#dialog02').css('display', 'block')
-                
+
                 // TODO: ここsound鳴らすところ同期処理にしたい
                 sound(2)
                 await sleep(2000)
-                
+
                 $('#dialog02').css('display', 'none')
                 $('#fear-box').css('display', 'block')
                 sound(3)
@@ -136,6 +119,8 @@
             return console.error(`error: ${err}`);
         }
     }
+
+
 
 
     //要素の取得
