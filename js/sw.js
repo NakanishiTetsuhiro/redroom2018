@@ -3,7 +3,10 @@
 // キャッシュ名とキャッシュファイルの指定
 var CACHE_NAME = 'redroom2018-caches';
 var urlsToCache = [
-    '/redroom2018/'
+  '/',
+  '/style/reset.css',
+  '/style/main.css',
+  '/js/my.js'
 ];
 
 // インストール処理
