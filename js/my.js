@@ -1,15 +1,4 @@
 (() => {
-    let player1 = new Tone.Player("./audio/01.ogg").toMaster();
-    let player2 = new Tone.Player("./audio/02.ogg").toMaster();
-    let player3 = new Tone.Player("./audio/03.ogg").toMaster();
-
-    // TODO: 音量変更してみる
-    // player1.volume.value = -6;
-    // player2.volume.value = -6;
-    // player3.volume.value = -6;
-
-    console.log(player3.volume)
-
     //マウスが押された際の関数
     function mdown(e) {
 
@@ -93,7 +82,6 @@
     }
 
 
-
     // 指定ms待つ
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
@@ -127,6 +115,10 @@
     let y
     let cnt = 1
 
+    let player1
+    let player2
+    let player3
+
     // 画面の読み込みが終わった時点で発火するイベント
     window.onload = function()
     {
@@ -141,11 +133,16 @@
 
         // 開いたときにまず１かい鳴らす
         // INFO: iOSではユーザーがなにかアクションを起こさない限り音がならない仕様なので鳴りません
-        sound(cnt)
+        // sound(cnt)
     };
 
     // うむ
     $('#close-btn').click(function(){
+        // 音源のロード
+         player1 = new Tone.Player("./audio/01.ogg").toMaster();
+         player2 = new Tone.Player("./audio/02.ogg").toMaster();
+         player3 = new Tone.Player("./audio/03.ogg").toMaster();
+
         cnt++
 
         // async関数の実行
