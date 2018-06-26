@@ -76,13 +76,20 @@
 
     function sound(n)
     {
-        //音源を生成
-        var synth = new Tone.Synth().toMaster();
-        //「C5」の音を「2分音符」で発音
-        synth.triggerAttackRelease('C5', '2n');
+        if (n === 1){
+            var player = new Tone.Player("./audio/01.ogg").toMaster();
+            player.autostart = true;
+        }
 
-        // var player = new Tone.Player("./audio/01.ogg").toMaster();
-        // player.autostart = true;
+        if (n === 2){
+            var player = new Tone.Player("./audio/02.ogg").toMaster();
+            player.autostart = true;
+        }
+
+        if (n === 3){
+            var player = new Tone.Player("./audio/03.ogg").toMaster();
+            player.autostart = true;
+        }
     }
 
 
@@ -119,8 +126,6 @@
             return console.error(`error: ${err}`);
         }
     }
-
-
 
 
     //要素の取得
